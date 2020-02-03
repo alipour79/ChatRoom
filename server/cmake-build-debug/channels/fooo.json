@@ -1,0 +1,10 @@
+[{
+		"sender":	"server",
+		"content":	"reza joined the channel!!"
+	}, {
+		"sender":	"reza",
+		"content":	"hello"
+	}, {
+		"sender":	"server",
+		"content":	"reza left the channel!!"
+	}]

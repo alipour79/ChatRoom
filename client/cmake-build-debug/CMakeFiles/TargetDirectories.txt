@@ -1,0 +1,3 @@
+/home/reza/Desktop/git/client/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/reza/Desktop/git/client/cmake-build-debug/CMakeFiles/client.dir
+/home/reza/Desktop/git/client/cmake-build-debug/CMakeFiles/edit_cache.dir

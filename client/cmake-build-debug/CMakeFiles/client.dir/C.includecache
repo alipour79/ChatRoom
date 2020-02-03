@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/reza/Desktop/git/client/cJSON.c
+string.h
+-
+stdio.h
+-
+math.h
+-
+stdlib.h
+-
+limits.h
+-
+ctype.h
+-
+locale.h
+-
+cJSON.h
+/home/reza/Desktop/git/client/cJSON.h
+
+/home/reza/Desktop/git/client/cJSON.h
+stddef.h
+-
+
+/home/reza/Desktop/git/client/main.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+cJSON.h
+/home/reza/Desktop/git/client/cJSON.h
+cJSON.c
+/home/reza/Desktop/git/client/cJSON.c
+
