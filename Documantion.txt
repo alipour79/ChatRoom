@@ -1,0 +1,398 @@
+Client Functions:
+
+
+
+
+char *combineString(const char *, const char *, const char *);
+
+this function get 3 string and combine them and make them ready for sending to the server
+it use to make register, login, send, joinChannel request( request with 3 parameter)
+
+
+
+char *combineString2(const char *, const char *);
+
+this function get 2 string and combine them and make them ready for sending to the server
+it use to make leave, logout, channelMember, refresh request( request with 2 parameter)
+
+
+
+void makingConnectionSendReceive();
+
+this function will make a socket and will connect to the server on the define port
+after connecting to the server it will send the client request to the server and also receive the server answer
+it use a stringPtr named message to send the request to the server and use a stringPtr named answer to receive the server answer
+
+
+
+void clearScreen();
+
+it will clear console screen when it runs
+
+
+
+int accountMenu();
+
+this function will show the menu when you are signed in and you aren't in any channel yet and choose the next menu by getting a number from user
+
+
+
+void registerMenu();
+
+this function will show the menu when you want to register a new account and choose the next menu by getting a number from user
+
+
+
+void loginMenu();
+
+this function will show the menu when you want login to a account and choose the next menu by getting a number from user
+
+
+
+int mainMenu();
+
+this function will show the main menu when user should choose to register new account or login to a existing account
+
+
+
+int channelMenu();
+
+this function will show the menu to manage a channel for sending a message or reading new message or ...
+
+
+
+
+int errorCheck();
+
+this function will parse the server answer and check if server send an error or not and if yes it will return 1 and if not it will return 0
+
+
+
+
+
+char *searchInAnswer(char *);
+
+this function parse the server answer and find the part we want it and it will return it
+
+
+
+
+
+void createChannel();
+
+when user choose the create channel option this function will execute and send appropriate request to the server
+it will send channel name and token to the server
+
+
+
+void joinChannel();
+
+when user choose the joinChannel option this function will execute and send appropriate request to the server
+it will send the channel name and token to the server
+
+
+
+int logout();
+
+when user choose to logout from account this function will execute and send appropriate request to the server
+it will send token to the server
+
+
+
+void sendMessageToChannel();
+
+when user want to send a message to it's channel this function will execute and send appropriate request to the server
+it will send the message string and token to the server
+
+
+
+void refresh();
+
+this function will send refresh request to the server and will print the new message from the last time that user see the messages
+it will send the token to the server
+
+
+
+void channelMembers();
+
+this function will send a request to the server to see the channel members
+it will send the token to the server
+
+
+
+int leaveChannel();
+
+this function will execute when a user want to leave channel
+it will send the token to the server
+
+
+
+
+
+
+
+
+
+Server function:
+
+
+
+
+void makeConnectionRecvSend();
+
+this function will make a socket and use the define port to connecting to the server
+this function has a endless loop to accepting clients it will recv a message from client and send an appropriate answer to the client and
+after that it will accept another client request
+
+
+
+char* authToken();
+
+this function will use rand function to make a random string and uses as Auth Token for each member
+this function will make a random number and random number use as ascii code to make random string
+
+
+
+int stringCompare(char *, char *);
+
+this function will compare two string and return 1 if strings are equal and return 0 if the string aren't equal
+this function compare character by character
+
+
+
+void parsingClientMessage();
+
+this function will parse the client string and send the parsed string to the command function
+this function will parse the message to a command and it's data
+
+
+
+
+void command(char[2][maxMessageLength]);
+
+this function will get the parsed client's message and choose the appropriate function for example login function or ...
+
+
+
+
+void registerMember(char[]);
+
+this function will execute when user want to register new account and it will make file with user's user name and save it's password in it in the directory ./members
+also if any error occurred it will send error message to the client
+
+
+
+void logIn(char[]);
+
+this function will execute when user want to login to the account and it use member file to check the password
+also if any error occurred it will send error message to the client
+
+
+
+void logOut(char[]);
+
+this function will execute when user want to logout
+also if any error occurred it will send error message to the client
+it will check the user is logged in before or not
+the answer will copy to the server response string by strcpy function and that string will be send to the client
+
+
+
+
+void joinChannel(char[]);
+
+this function use to a user join channel
+also if any error occurred it will send error message to the client
+check if user is logged in or not and there is requested channel or not and ...
+the answer will copy to the server response string by strcpy function and that string will be send to the client
+
+
+
+
+void refresh(char[]);
+
+this function will send the new message to the client
+also if any error occurred it will send error message to the client
+check if you are currently in a channel or not
+the answer will copy to the server response string by strcpy function and that string will be send to the client
+
+
+
+
+void channelMember(char[]);
+
+this function will send the channel members' name to the client
+also if any error occurred it will send error message to the client
+check if you are currently in a channel or not
+the answer will copy to the server response string by strcpy function and that string will be send to the client
+
+
+
+
+void leaveChannel(char[]);
+
+this function will use to a user leave a channel
+also if any error occurred it will send error message to the client
+check if you are currently in a channel or not
+the answer will copy to the server response string by strcpy function and that string will be send to the client
+
+
+
+void createChannel(char[]);
+
+this function will create a new channel and make a new file with channel's name as file name in directory of ./channels
+also if any error occurred it will send error message to the client
+it will check is there a channel with the requested name or not
+the answer will copy to the server response string by strcpy function and that string will be send to the client
+
+
+
+void sendMessage(char[]);
+
+this function will use to send a new message to the channel and it will save the message in the channel file
+also if any error occurred it will send error message to the client
+check if you are currently in a channel or not
+the answer will copy to the server response string by strcpy function and that string will be send to the client
+
+
+
+
+void erroR(char*);
+
+this function will get a string as error's message and will send it to the client
+if any error occurred functions will call this function to send error to the client
+it make cJSON object and add the string to it and will copy it to the string that will send to the client
+
+
+
+
+void member();
+
+this function will read a file when server execute and load the members
+there is file ./members.cjson that will save all members' username in it and use for initialize at the startup of the program
+
+
+
+void addMember(char*);
+
+this function will use when user want to register new account and save the information in allMember array
+after adding this member to the member array it change the position of user for example logged in or in channel or not
+
+
+
+int findMemberByName(char[]);
+
+this function will use a string and find a member in allMember array which it's name equals to the string
+
+
+
+
+int findMemberByToken(char[]);
+
+when client send a request with auth token functions will use this function to understand which member send request
+also will send error to the client if the token wasn't correct
+this function will use allMember array
+
+
+
+
+
+
+cJSON functions:
+
+
+cJSON *cJSON_CreateObject()
+
+this function will create two node and connect them the first node is: {    and the second node is: }
+
+
+
+void cJSON_AddStringToObject(cJSON *object, char *name, char *content)
+
+this function will get two string and add it to object in this shape string1:string2
+it use pointer in cJSON struct to add this to object
+
+
+
+char *cJSON_Print(cJSON *nodeAddress)
+
+it will get a pointer and combine node's string until the there isn't any node and function will return combined string
+
+
+
+
+cJSON* cJSON_CreateArray()
+
+this function will create and cJSON array and two nodes
+the first node is:[ and the second node is:]
+
+
+
+void cJSON_AddItemToArray(cJSON* node, cJSON* item )
+
+this function will change the node's pointer to add a item to the cJSON array
+
+
+
+void cJSON_DeleteItemFromArray(cJSON* array,int l)
+
+this function will change the node's pointer to get rid of a object in array
+
+
+
+
+int cJSON_GetArraySize(cJSON* array)
+
+this function will get a cJSON array and will return the number of array's element
+it will count total node that has { as its string value
+
+
+
+
+cJSON* cJSON_CreateString(char* string)
+
+it will make a node with input string as its string and will return the firts node address
+
+
+
+
+void cJSON_ParseLineByLine(char* lineString,int* nodeCounter)
+
+it will get line as its input and parse it if it needed and use nodes to save it
+this function will use in the main parse function when the main parse parsed the main string to lines
+
+
+
+
+cJSON* cJSON_Parse(char* string)
+
+this function will get the string that should be parsed and send the main string line by line to the another parse function and at the end it will connect all nodes with node's pointer
+
+
+
+
+cJSON* cJSON_GetObjectItem(cJSON* object,char* string)
+
+it will get a cJSON object and a string and find the string and return the pointer of the answer content of string
+it will move on the object and compare the node's string with input string
+
+
+
+
+void cJSON_AddItemToObject(cJSON* object,char* string,cJSON* item)
+
+it will get two objetc and string and add string and second string to the first string in this shape : string:item's string (this will be added to the end of the object before'}')
+
+
+
+
+char* cJSON_PrintO(cJSON* node)
+
+this function will get a node address and if it was a cJSON array address it will return the entire array as string (check by '[' and ']') and if it wasn't an array it will return just the input
+node string
+
+
+
+cJSON* cJSON_GetArrayItem(cJSON* array, int l)
+
+this function will get a cJSON array and an integer for example 2 and this example it will return the second node's address. this function will count the element by finding { as string of a node
